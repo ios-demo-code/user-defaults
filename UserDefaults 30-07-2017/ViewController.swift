@@ -10,16 +10,35 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    var userDefaults = UserDefaults.standard
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        let index = userDefaults.integer(forKey: "bgColor")
+        changeBackgroundColor(index: index)
+        self.segmentedControl.selectedSegmentIndex = index
+       
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    @IBAction func segmentedControlAction(_ sender: Any) {
+        let index = self.segmentedControl.selectedSegmentIndex
+        userDefaults.set(index, forKey: "bgColor")
+        changeBackgroundColor(index: index)
     }
-
-
+    
+    func changeBackgroundColor(index:Int){
+        switch index {
+        case 0:
+            self.view.backgroundColor = UIColor.green
+        case 1:
+            self.view.backgroundColor = UIColor.red
+        case 2:
+            self.view.backgroundColor = UIColor.yellow
+        default:
+            self.view.backgroundColor = UIColor.white
+        }
+    }
+    
 }
 
